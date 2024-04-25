@@ -1,0 +1,1497 @@
+#%RAML 1.0
+title: Documentación APIs Calidad Docencia
+version: v1
+baseUri: {{URL Server}}api/v1
+
+/item:
+  /alignments:
+    post:
+      description: Crear registro de alineamiento de módulo
+      body:
+        application/json:
+         type: Item    
+      responses:
+        200:
+          body:
+            application/json:v
+              example: |
+                {
+                  "message": "Módulo de alineación creado con éxito"
+                }
+
+  /alignment-rubric:
+    post:
+      description: Crear registro de alineamiento de rúbrica
+      body:
+        application/json:
+          type: Item
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "message": "Rúbrica de alineación creada con éxito"
+                }
+
+  /alignment-rubric:
+    get:
+      description: Obtener todos los registros de alineamiento de rúbrica
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+              {
+                data": 
+                [
+                  {
+                    "detail": {
+                    "lead_professor": "44444444-4",
+                    "status": "En edición"
+                    }
+                  }
+                ]
+              }
+        404:
+          body:
+            application/json:
+              example: |
+                {
+                  "message": "No existen Alineamientos"
+  /alignments/Modulo:
+    get:
+      description: Obtener todos los registros de alineamiento de módulo
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+
+                    "coordinator_professor":"181227702",
+                    "type":"Módulo",
+                    "status":"Activo",
+                    "detail":
+                    [
+                        {
+                            "faculty":"Facultad de ciencias agrarias",
+                            "career": "Agronomia"
+                        }
+                    ]
+
+                }
+  /alignment/{id_aligment}:
+    patch:
+      description: Actualizar alineamiento de módulo buscando por ID de registro
+      queryParameters:
+        id_aligment:
+          description: ID del alineamiento
+          type: string
+          example: "661ed3f75d31eca96c2d43e8
+      body:
+        application/json:
+          type: Item
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "message": "Alineación actualizada con éxito"
+                }
+
+  /alignment-rubric/{id_aligment}:
+    patch:
+      description: Actualizar alineamiento de rúbrica buscando por ID de registro
+      queryParameters:
+        id_aligment:
+          description: ID del alineamiento
+          type: string
+          example: "661ed3f75d31eca96c2d43e8
+      body:
+        application/json:
+          type: Item
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "message": "Rúbrica de alineación actualizada con éxito"
+                }
+
+  /alignment/coordinator/{rut_professor}:
+    get:
+      description: Obtener todos los registros de alineamiento de módulo buscando por rut de docente coordinador
+        queryParameters:
+          rut_professor:
+            description: Rut del docente
+            type: string
+            example: "22222222-2"
+      responses:
+        200:
+          body:
+            application/json:
+            {
+    "data": 
+    [
+        {
+            "detail": 
+            {
+                "status": "Alineado",
+                "subject_code": "3403B101",
+                "module_selected": "66296108f10420994567b005",
+                "comments_aligment_module": [
+                    {
+                        "profile": "Sebastian Ortega ",
+                        "profile_role": "Docente Coordinador",
+                        "comment": "lorem",
+                        "_id": "662961a0f10420994567b027",
+                        "timestamps": "2024-04-24T19:46:40.758Z"
+                    }
+              }
+        }
+    ]
+  /alignment/coordinator/{rut_professor}/{id_module}:
+    get:
+      description: Obtener todos los registros de alineamiento de módulo buscando por rut de docente coordinador y ID de módulo
+      responses:
+      queryParameters:
+          rut_professor:
+            description: Rut del docente
+            type: string
+            example: "22222222-2"
+          id_module:
+            description: ID del módulo
+            type: string
+            example: "661ed3f75d31eca96c2d43e8"
+        200:
+          body:
+            application/json:
+            {
+              "data": 
+              [
+                  {
+                      "detail": 
+                      {
+                          "status": "Alineado",
+                          "subject_code": "3403B101",
+                          "module_selected": "66296108f10420994567b005",
+                          "comments_aligment_module": [
+                              {
+                                  "profile": "Sebastian Ortega ",
+                                  "profile_role": "Docente Coordinador",
+                                  "comment": "lorem",
+                                  "_id": "662961a0f10420994567b027",
+                                  "timestamps": "2024-04-24T19:46:40.758Z"
+                              }
+                        }
+                  }
+              ]
+            }
+  /careers:
+  get:
+    description: Obtener todas las carreras
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              {
+                  "data": 
+                  [
+                      {
+                          "_id": "65a56eec9b5ec1a572e36452",
+                          "codigo_carrera": 3702,
+                          "carrera": "TÉCNICO SUPERIOR EN VINIFICACIÓN Y ENOLOGÍA",
+                          "codigo_facultad": 22
+                      },
+                      {
+                          "_id": "65a56eec9b5ec1a572e36453",
+                          "codigo_carrera": 3703,
+                          "carrera": "TÉCNICO SUPERIOR EN VITICULTURA",
+                          "codigo_facultad": 22
+                      }
+                  ]
+              }
+      500:
+        body:
+          application/json:
+            type: ErrorResponse
+  /evaluation-student-section:
+  post:
+    description: Crear registro de evaluación individual de estudiante
+       body:
+        application/json:
+         type: Item    
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              {
+                "message": "Registro de evaluación creado correctamente"
+              }
+      500:
+        body:
+          application/json:
+            type: ErrorResponse
+ /evaluation-student-section/{id_section}:
+    patch:
+      description: Actualizar registro de evaluación individual de estudiante buscando por ID de registro
+      queryParameters:
+          id_section:
+            description: ID de la sección
+            type: string
+            example: "661ed3f75d31eca96c2d43e8"     
+      body:
+        application/json:
+         type: Item   
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "message": "Sección de evaluación actualizada correctamente"
+                }
+        500:
+          body:
+            application/json:
+              type: ErrorResponse
+  /faculties:
+  get:
+    description: Obtener todas las facultades
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              {
+                  "data": 
+                  [
+                    {
+                          "_id": "65a56da79b5ec1a572e3641d",
+                          "codigo_facultad": 21,
+                          "facultad": "FACULTAD DE PSICOLOGÍA"
+                      },
+                      {
+                          "_id": "65a56da79b5ec1a572e3641b",
+                          "codigo_facultad": 10,
+                          "facultad": "INSTITUTO DE CIENCIAS BIOLÓGICAS"
+                      },
+                      {
+                          "_id": "65a56da79b5ec1a572e3641c",
+                          "codigo_facultad": 20,
+                          "facultad": "VICERRECTORÍA DE DOCENCIA DE PREGRADO"
+                      }
+                  ]
+              }
+      500:
+        body:
+          application/json:
+            type: ErrorResponse
+  /learnings/{id_module}:
+  get:
+    description: Obtener todos los aprendizajes por ID de módulo
+          queryParameters:
+          id_module:
+            description: ID del módulo
+            type: string
+            example: "661ed3f75d31eca96c2d43e8"
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+            {
+              [
+                    {
+                        "_id": "65e773537d55b5eb8768dbd8",
+                        "subject_name": "AGRICULTURA Y GEOGRAFIA DE CHILE",
+                        "subject_code": "3403B101",
+                        "id": "5",
+                        "skills": 
+                        [
+                            {
+                                "skill_code": "C08",
+                                "skill_name": "08. Promover tecnologías considerando las diferentes realidades socioeconómicas, para el mejoramiento de las condiciones productivas del sector agroalimentario. ",
+                                "learnings": [
+                                    {
+                                        "learning_code": "81I",
+                                        "learning_name": "8.1.I. Reconoce experiencias tecnológicas asociados a la producción agrícola.",
+                                        "level": "Inicial",
+                                        "_id": "65e773537d55b5eb8768dbda"
+                                    },
+                                    {
+                                        "learning_code": "82I",
+                                        "learning_name": "8.2.I. Reconoce experiencias tecnológicas asociados a la producción agroindustrial.",
+                                        "_id": "65e773537d55b5eb8768dbdb",
+                                        "level": "Inicial"
+                                    }
+                                ],
+                                "_id": "65e773537d55b5eb8768dbd9"
+                            }
+                        ],
+                        "active": true,
+                        "createdAt": "2024-03-05T19:32:35.419Z",
+                        "updatedAt": "2024-03-05T19:32:35.419Z",
+                        "__v": 0
+                    }
+              ]
+            }
+      500:
+        body:
+          application/json:
+            example: |
+              {
+                "message": "No se encontraron aprendizajes"
+              }
+  /learning:
+  post:
+    description: Crear aprendizajes
+       body:
+        application/json:
+         type: Item    
+    responses:
+      201:
+        body:
+          application/json:
+            example: |
+              {
+                "message": "Aprendizaje creado correctamente"
+              }
+      500:
+        body:
+          application/json:
+            type: ErrorResponse
+  /login:
+  post:
+    description: Iniciar sesión en la plataforma
+       body:
+        application/json:
+         type: Item   
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              {
+                "message": "Login Ok"
+              }
+      401:
+        body:
+          application/json:
+            type: ErrorResponse
+/modules/{career_code}:
+    get:
+      description: Obtener módulos por código de carrera
+      uriParameters:
+        career_code:
+          description: Código de la carrera
+          type: string
+          example: 3425
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+              {
+                  "status": true,
+                  "data": 
+                  [
+                      {
+                          "codigo": "3425",
+                          "nombre": "FONOAUDIOLOGÍA",
+                          "fecha_creacion": "23-DEC-02",
+                          "sede": "T",
+                          "planes": 
+                          [
+                              {
+                                  "codigo_plan": 15,
+                                  "decreto": "367",
+                                  "fecha": "26-MAR-15",
+                                  "asignaturas": 
+                                  [
+                                      {
+                                          "asi_codigo": "3425B114",
+                                          "asi_nombre": "ANATOMIA",
+                                          "nivel": 1,
+                                          "tipo": "Formación Básica",
+                                          "creditos": 9
+                                      },
+                                      {
+                                          "asi_codigo": "3425B217",
+                                          "asi_nombre": "AUTOGESTION DEL APRENDIZAJE",
+                                          "nivel": 3,
+                                          "tipo": "Formación Fundamental",
+                                          "creditos": 4.5
+                                      }
+                            
+                                  ]
+                              }
+                          ]
+                      }
+                  ]
+              }
+/selected-modules:
+      get:
+        description: Obtener todos los módulos marcados
+        responses:
+          200:
+            body:
+              application/json:
+                example: |
+                  {
+                      "data": 
+                      [
+                          {
+                              "_id": "66292badf10420994567af17",
+                              "module_type": "Formación Fundamental",
+                              "module_details": {
+                                  "program_name": "Formación Fundamental",
+                                  "subject_code": "3442A117",
+                                  "subject_name": "Comunicacion Oral y Escrita I",
+                                  "_id": "66292badf10420994567af18",
+                                  "sections": []
+                              },
+                              "user_name": "Esteban",
+                              "selected_date": "2024-04-24T15:56:29.521Z",
+                              "createdAt": "2024-04-24T15:56:29.523Z",
+                              "updatedAt": "2024-04-24T15:56:29.523Z",
+                              "__v": 0,
+                              "status": "Sin alinear"
+                          }
+                      ]
+                  }
+/selected-modules/assign-teachers:
+      post:
+        description: Crear registro que asigna docente a modulo marcado
+       body:
+        application/json:
+         type: Item   
+        responses:
+          200:
+            body:
+              application/json:
+                example: |
+                  {
+                    "message": "Moulo asignado correctamente al docente"
+                  }
+/plans/{career_code}:
+  get:
+      description: Obtener planes por código de carrera
+      uriParameters:
+        career_code:
+          description: Código de la carrera
+          type: string
+          example: 3425
+      responses:
+        200:
+          body:
+            application/json:
+            example:
+            {
+                "data": 
+                [
+                    {
+                        "_id": "654ceb3eefd844eba0ebd27e",
+                        "codigo": "3403",
+                        "nombre": "AGRONOMÍA",
+                        "plan_codigos": 
+                        [
+                            "15",
+                            "11",
+                            "44",
+                            "922",
+                            "991",
+                            "923"
+                        ]
+                    }
+                ]
+            }
+/rubric:
+  post:
+          description: Crear rúbrica
+       body:
+        application/json:
+         type: Item   
+          responses:
+            200:
+              body:
+                application/json:
+                  example: |
+                    {
+                      "message": "Rubrica creada exitosamente"
+                    }
+/rubrics:
+    get:
+      description: Obtener todas las rúbricas
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+              {
+                  "data": 
+                  [
+                      {
+                          "_id": "662a7a80f10420994567c383",
+                          "lead_professor": "44444444-4",
+                          "status": "Activo",
+                          "alignment_status": "En edición",
+                          "title": "",
+                          "requirement_percentage": null,
+                          "subject_alignment_id": "662961a0f10420994567b026",
+                          "subject_id": "3403B101",
+                          "evaluation_id": "662961a9f10420994567b072",
+                          "criteria": 
+                          [
+                              {
+                                  "criteria_description": "c1",
+                                  "indicators": 
+                                  [
+                                      {
+                                          "indicator_description": "i2",
+                                          "score": 2,
+                                          "score_descriptions": 
+                                          [
+                                              {
+                                                  "score": 0,
+                                                  "description": null,
+                                                  "_id": "662a7a87f10420994567c3b3"
+                                              }
+                                          ],
+                                          "_id": "662a7a80f10420994567c385"
+                                      }
+                                  ],
+                                  "_id": "662a7a80f10420994567c384"
+                              }
+                          ],
+                          "active": true,
+                          "createdAt": "2024-04-25T15:45:04.862Z",
+                          "updatedAt": "2024-04-25T15:45:11.387Z",
+                          "__v": 1
+                      }
+                  ]
+              }
+    500:
+      body:
+        application/json:
+          example: |
+      {
+          "message": "Rúbrica no encontrada"
+      }
+/rubric/evaluation/{evaluation_id}:
+    get:
+      description: OBtener rubrica por id de evaluacion
+      queryParameters:
+          evaluation_id:
+            description: ID de la evaluación
+            type: string
+            example: "661ed3f75d31eca96c2d43e8"
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+              {
+                  "data": 
+                  [
+                      {
+                          "_id": "662a7a80f10420994567c383",
+                          "lead_professor": "44444444-4",
+                          "status": "Activo",
+                          "alignment_status": "En edición",
+                          "title": "",
+                          "requirement_percentage": null,
+                          "subject_alignment_id": "662961a0f10420994567b026",
+                          "subject_id": "3403B101",
+                          "evaluation_id": "662961a9f10420994567b072",
+                          "criteria": 
+                          [
+                              {
+                                  "criteria_description": "c1",
+                                  "indicators": 
+                                  [
+                                      {
+                                          "indicator_description": "i2",
+                                          "score": 2,
+                                          "score_descriptions": 
+                                          [
+                                              {
+                                                  "score": 0,
+                                                  "description": null,
+                                                  "_id": "662a7a87f10420994567c3b3"
+                                              }
+                                          ],
+                                          "_id": "662a7a80f10420994567c385"
+                                      }
+                                  ],
+                                  "_id": "662a7a80f10420994567c384"
+                              }
+                          ],
+                          "active": true,
+                          "createdAt": "2024-04-25T15:45:04.862Z",
+                          "updatedAt": "2024-04-25T15:45:11.387Z",
+                          "__v": 1
+                      }
+                  ]
+              }
+    500:
+      body:
+        application/json:
+          example: |
+      {
+          "message": "Rúbrica no encontrada"
+      }
+/subject-alignment/type/{alignment_type}/status/{alignment_status}:
+    get:
+              description: Obtener todos los alineamientos buscando por tipo y estado
+              queryParameters:
+                alignment_type:
+                  description: Tipo de alineamiento
+                  type: string
+                  example: "Modulo"
+                alignment_status:
+                  description: Estado de alineamiento
+                  type: string
+                  example: "Alineado"
+              responses:
+                200:
+                  body:
+                    application/json:
+                      example: |
+                        {
+                            "data": 
+                            [
+
+                                {
+                                    "subject_name": "Comunicacion Oral y Escrita I",
+                                    "_id": "661ff8ee2910d337c4b9b762",
+                                    "section_name": "D",
+                                    "course_name": "D-2024",
+                                    "subject_code": "3442A117",
+                                    "subject_alignment_id": "661ed3c35d31eca96c2d43a2",
+                                    "year": 2024,
+                                    "period": 1,
+                                    "capacity": 30,
+                                    "students": 
+                                    [
+                                        {
+                                            "student_id": "660c63f3c617badfd66d9c02",
+                                            "student_name": "Ignacio Rojas"
+                                        },
+                                        {
+                                            "student_id": "660c645afe7655752717d021",
+                                            "student_name": "Roberto Gonzalez"
+                                        }
+                                    ],
+                                    "evaluation": {
+                                        "evaluation_id": "661ed3f75d31eca96c2d43e8",
+                                        "evaluation_name": "Guía de trabajo/Ejercicios",
+                                        "current_students": 0,
+                                        "pending_students": 0,
+                                        "status": "Sin evaluación"
+                                    }
+                                }
+                            ]
+                        }
+/subject-alignment/type/{alignment_type}/status/{alignment_status}/professor-coordinator/{rut_professor}:
+                get:
+                  description: Obtener todos los alineamientos buscando por tipo, estado y rut de docente coordinador
+                queryParameters:
+                alignment_type:
+                  description: Tipo de alineamiento
+                  type: string
+                  example: "Modulo"
+                alignment_status:
+                  description: Estado de alineamiento
+                  type: string 
+                  example: "Alineado"
+                rut_professor:
+                  description: Rut del docente
+                  type: string
+                  example: "22222222-2"
+                  responses:
+                    200:
+                      body:
+                        application/json:
+                          example: |
+                        {
+                            "data": 
+                            [
+
+                                {
+                                    "subject_name": "Comunicacion Oral y Escrita I",
+                                    "_id": "661ff8ee2910d337c4b9b762",
+                                    "section_name": "D",
+                                    "course_name": "D-2024",
+                                    "subject_code": "3442A117",
+                                    "subject_alignment_id": "661ed3c35d31eca96c2d43a2",
+                                    "year": 2024,
+                                    "period": 1,
+                                    "capacity": 30,
+                                    "students": 
+                                    [
+                                        {
+                                            "student_id": "660c63f3c617badfd66d9c02",
+                                            "student_name": "Ignacio Rojas"
+                                        },
+                                        {
+                                            "student_id": "660c645afe7655752717d021",
+                                            "student_name": "Roberto Gonzalez"
+                                        }
+                                    ],
+                                    "evaluation": {
+                                        "evaluation_id": "661ed3f75d31eca96c2d43e8",
+                                        "evaluation_name": "Guía de trabajo/Ejercicios",
+                                        "current_students": 0,
+                                        "pending_students": 0,
+                                        "status": "Sin evaluación"
+                                    }
+                                }
+                            ]
+                        }
+/subject-alignment/type/{alignment_type}/status/{alignment_status}/professor-responsible/{rut_professor_responsible}:
+                get:
+                   description: Obtener todos los alineamientos buscando por tipo, estado y rut de docente responsable
+                queryParameters:
+                alignment_type:
+                  description: Tipo de alineamiento
+                  type: string
+                  example: "Modulo"
+                alignment_status:
+                  description: Estado de alineamiento
+                  type: string 
+                  example: "Alineado"
+                rut_professor_responsible:
+                  description: Rut del docente
+                  type: string
+                  example: "22222222-2"
+                  responses:
+                    200:
+                      body:
+                        application/json:
+                          example: |
+                        {
+                            "data": 
+                            [
+
+                                {
+                                    "subject_name": "Comunicacion Oral y Escrita I",
+                                    "_id": "661ff8ee2910d337c4b9b762",
+                                    "section_name": "D",
+                                    "course_name": "D-2024",
+                                    "subject_code": "3442A117",
+                                    "subject_alignment_id": "661ed3c35d31eca96c2d43a2",
+                                    "year": 2024,
+                                    "period": 1,
+                                    "capacity": 30,
+                                    "students": 
+                                    [
+                                        {
+                                            "student_id": "660c63f3c617badfd66d9c02",
+                                            "student_name": "Ignacio Rojas"
+                                        },
+                                        {
+                                            "student_id": "660c645afe7655752717d021",
+                                            "student_name": "Roberto Gonzalez"
+                                        }
+                                    ],
+                                    "evaluation": {
+                                        "evaluation_id": "661ed3f75d31eca96c2d43e8",
+                                        "evaluation_name": "Guía de trabajo/Ejercicios",
+                                        "current_students": 0,
+                                        "pending_students": 0,
+                                        "status": "Sin evaluación"
+                                    }
+                                }
+                            ]
+                        }
+/rubric/subject-aligment/{subject_alignment_id}:
+      get:
+        description: Obtener rúbricas buscando por ID de alineamiento de módulo
+        queryParameters:
+        subject_alignment_id:
+          description: ID del alineamiento de modulo
+          type: string
+          example: "661ed3f75d31eca96c2d43e8"
+        responses:
+          200:
+            body:
+              application/json:
+              example:
+                            {
+                  "data": 
+                  [
+                      {
+                          "_id": "662a7a80f10420994567c383",
+                          "lead_professor": "44444444-4",
+                          "status": "Activo",
+                          "alignment_status": "En edición",
+                          "title": "",
+                          "requirement_percentage": null,
+                          "subject_alignment_id": "662961a0f10420994567b026",
+                          "subject_id": "3403B101",
+                          "evaluation_id": "662961a9f10420994567b072",
+                          "criteria": 
+                          [
+                              {
+                                  "criteria_description": "c1",
+                                  "indicators": 
+                                  [
+                                      {
+                                          "indicator_description": "i2",
+                                          "score": 2,
+                                          "score_descriptions": 
+                                          [
+                                              {
+                                                  "score": 0,
+                                                  "description": null,
+                                                  "_id": "662a7a87f10420994567c3b3"
+                                              }
+                                          ],
+                                          "_id": "662a7a80f10420994567c385"
+                                      }
+                                  ],
+                                  "_id": "662a7a80f10420994567c384"
+                              }
+                          ],
+                          "active": true,
+                          "createdAt": "2024-04-25T15:45:04.862Z",
+                          "updatedAt": "2024-04-25T15:45:11.387Z",
+                          "__v": 1
+                      }
+                  ]
+              }
+    500:
+      body:
+        application/json:
+          example: |
+      {
+          "message": "Rúbrica no encontrada"
+      }
+
+/subject/{subject_alignment_id}/evaluation/{evaluation_id}:
+        get:
+        description:  Obtener rúbricas buscando por ID de alineamiento de módulo y de evaluación
+        queryParameters:
+        subject_alignment_id:
+          description: ID del alineamiento de módulo
+          type: string
+          example: "661ed3f75d31eca96c2d43e8"
+        evaluation_id:
+          description: ID de la evaluación
+          type: string
+          example: "661ed3f75d31eca96c2d43e8"
+        responses:
+          200:
+            body:
+              application/json:
+              example:
+              {
+                  "data": 
+                  [
+                      {
+                          "_id": "662a7a80f10420994567c383",
+                          "lead_professor": "44444444-4",
+                          "status": "Activo",
+                          "alignment_status": "En edición",
+                          "title": "",
+                          "requirement_percentage": null,
+                          "subject_alignment_id": "662961a0f10420994567b026",
+                          "subject_id": "3403B101",
+                          "evaluation_id": "662961a9f10420994567b072",
+                          "criteria": 
+                          [
+                              {
+                                  "criteria_description": "c1",
+                                  "indicators": 
+                                  [
+                                      {
+                                          "indicator_description": "i2",
+                                          "score": 2,
+                                          "score_descriptions": 
+                                          [
+                                              {
+                                                  "score": 0,
+                                                  "description": null,
+                                                  "_id": "662a7a87f10420994567c3b3"
+                                              }
+                                          ],
+                                          "_id": "662a7a80f10420994567c385"
+                                      }
+                                  ],
+                                  "_id": "662a7a80f10420994567c384"
+                              }
+                          ],
+                          "active": true,
+                          "createdAt": "2024-04-25T15:45:04.862Z",
+                          "updatedAt": "2024-04-25T15:45:11.387Z",
+                          "__v": 1
+                      }
+                  ]
+              }
+    500:
+      body:
+        application/json:
+          example: |
+      {
+          "message": "Rúbrica no encontrada"
+      }
+/alignment-rubric/feedback/{rubric_id}:
+        get:
+        description: Obtener retroalimentación de rúbrica buscando por su ID
+        queryParameters:
+        rubric_id:
+          description: ID de la rúbrica
+          type: string
+          example: "661ed3f75d31eca96c2d43e8"
+              {
+                  "data": 
+                  [
+                      {
+                          "_id": "662a7a80f10420994567c383",
+                          "lead_professor": "44444444-4",
+                          "status": "Activo",
+                          "alignment_status": "En edición",
+                          "title": "",
+                          "requirement_percentage": null,
+                          "subject_alignment_id": "662961a0f10420994567b026",
+                          "subject_id": "3403B101",
+                          "evaluation_id": "662961a9f10420994567b072",
+                          "criteria": 
+                          [
+                              {
+                                  "criteria_description": "c1",
+                                  "indicators": 
+                                  [
+                                      {
+                                          "indicator_description": "i2",
+                                          "score": 2,
+                                          "score_descriptions": 
+                                          [
+                                              {
+                                                  "score": 0,
+                                                  "description": null,
+                                                  "_id": "662a7a87f10420994567c3b3"
+                                              }
+                                          ],
+                                          "_id": "662a7a80f10420994567c385"
+                                      }
+                                  ],
+                                  "_id": "662a7a80f10420994567c384"
+                              }
+                          ],
+                          "active": true,
+                          "createdAt": "2024-04-25T15:45:04.862Z",
+                          "updatedAt": "2024-04-25T15:45:11.387Z",
+                          "__v": 1
+                      }
+                  ]
+              }
+    500:
+      body:
+        application/json:
+          example: |
+      {
+          "message": "Alineamiento de rúbrica no encontrado"
+      }
+                  }
+/updtecriteria/description/subject-alignment/{subject_alignment_id}:
+    patch:
+      description: Actualizar descripción de criterio buscando por ID de alineamiento de módulo
+      queryParameters:
+        subject_alignment_id:
+          description: ID del alineamiento de módulo
+          type: string
+          example: "661ed3f75d31eca96c2d43e8"
+       body:
+        application/json:
+         type: Item   
+              responses:
+                200:
+                  body:
+                    application/json:
+                      example: |
+                        {
+                          "message": "Criteria description updated successfully"
+                        }
+/update-indicator/level-descriptions/evaluation/{evaluation_id}:
+            patch:
+              description: Actualizar desripcion de niveles buscando por id de evaluación
+              queryParameters:
+                evaluation_id:
+                  description: ID de la evaluación
+                  type: string
+                  example: "661ed3f75d31eca96c2d43e8"
+       body:
+        application/json:
+         type: Item   
+              responses:
+                200:
+                  body:
+                    application/json:
+                      example: |
+                        {
+                          "message": "Criteria level descriptions updated successfully"
+                        }
+/updatecriterias/subject-alignment/{subject_alignment_id}:
+            patch:
+              description: Actualizar criterios buscando por ID de alineamiento de módulo
+              queryParameters:
+              subject_alignment_id:
+                description: ID del alineamiento de módulo
+                type: string
+                example: "661ed3f75d31eca96c2d43e8"
+       body:
+        application/json:
+         type: Item   
+              responses:
+                200:
+                  body:
+                    application/json:
+                      example: |
+                        {
+                          "message": "Criterias updated successfully"
+                        }
+/updatecriterias/evaluation/{evaluation_id}:
+            patch:
+              description:  Actualizar criterios buscando por ID de evaluación
+              queryParameters:
+                evaluation_id:
+                  description: ID de la evaluación
+                  type: string
+                  example: "661ed3f75d31eca96c2d43e8"
+       body:
+        application/json:
+         type: Item   
+              responses:
+                200:
+                  body:
+                    application/json:
+                      example: |
+                        {
+                          "message": "Criterias updated successfully"
+                        }
+/update-alignment-status/subject-alignment/{subject_alignment_id}:
+          patch:
+            description:  Actualizar estado de alineamiento de modulo buscando por su ID
+            queryParameters:
+                 subject_alignment_id:
+                description: ID del alineamiento de módulo
+                type: string
+                example: "661ed3f75d31eca96c2d43e8":
+       body:
+        application/json:
+         type: Item   
+            responses:
+              200:
+                body:
+                  application/json:
+                    example: |
+                      {
+                        "message": "Alignment status updated successfully"
+                      }
+/updatecriteria/indicators/subject-alignment/{subject_alignment_id}:
+              patch:
+                description: Actualizar indicadores, buscando por ID de alineamiento de módulo y id de criteria que lo contiene
+                queryParameters:
+                 subject_alignment_id:
+                  description: ID del alineamiento de módulo
+                  type: string
+                  example: "661ed3f75d31eca96c2d43e8":
+       body:
+        application/json:
+         type: Item   
+                responses:
+                  200:
+                    body:
+                      application/json:
+                        example: |
+                          {
+                            "message": "Criteria indicators updated successfully"
+                          }
+/deleteallcriteria/evaluation/{evaluation_id}:
+          delete:
+            description: Eliminar todos los criterios buscando por id de evaluación
+            queryParameters:
+              evaluation_id:
+              description: ID de la evaluación
+              type: string
+              example: "661ed3f75d31eca96c2d43e8"
+            responses:
+              200:
+                body:
+                  application/json:
+                    example: |
+                      {
+                        "message": "All criteria deleted successfully"
+                      }
+/deletecriteria/evaluation/{evaluation_id}/criteria{criteria_id}:
+              delete:
+              description: Eliminar criterio específico buscando por id de criteria y id de evaluacion
+              queryParameters:
+                evaluation_id:
+                description: ID de la evaluación
+                type: string
+                example: "661ed3f75d31eca96c2d43e8"
+                criteria_id:
+                description: ID del criterio
+                type: string
+                example: "14"
+                responses:
+                  200
+                    body:
+                      application/json:
+                        example: |
+                          {
+                            "message": "Criteria deleted successfully"
+                          }
+/deletecriteria/indicator/description/evaluation/{evaluation_id}/criteria/{criteria_id}:
+                  delete:
+                    description: Eliminar descripción de indicador buscando por id de criteria y id de evaluacion
+                    queryParameters:
+                      evaluation_id:
+                      description: ID de la evaluación
+                      type: string
+                      example: "661ed3f75d31eca96c2d43e8"
+                      criteria_id:
+                      description: ID del criterio
+                      type: string
+                      example: "14"
+                    body:
+                      application/json:
+                        example: |
+                          {
+                            "indicator_description": "description11"
+                          }
+                    responses:
+                      200:
+                        body:
+                          application/json:
+                            example: |
+                              {
+                                "message": "Indicator deleted successfully"
+                              }
+
+/section/create:
+      post:
+        description: Crear nueva sección
+       body:
+        application/json:
+         type: Item   
+        responses:
+          200:
+            body:
+              application/json:
+                example: |
+                  {
+                    "message": "Sección creada exitosamente"
+                  }
+/section/{section_id}:
+        patch:
+          description: Actualizar sección buscando por su ID
+          queryParameters:
+            section_id:
+            description: ID de la seccion
+            type: string
+            example: "661ed3f75d31eca96c2d43e8"
+       body:
+        application/json:
+         type: Item   
+          responses:
+            200:
+              body:
+                application/json:
+                  example: |
+                    {
+                      "message": "Section updated successfully"
+                    }
+/students-section/section/{section_id}/evaluation/{evaluation_id}:
+            get:
+              description: Obtener estudiantes de sección, buscando por ID de sección y ID de evaluación
+              queryParameters:
+                section_id:
+                description: ID de la seccion
+                type: string
+                example: "661ed3f75d31eca96c2d43e8"
+                evaluation_id:
+                description: ID de la evaluación
+                type: string
+                example: "661ed3f75d31eca96c2d43e8"
+              responses:
+                200:
+                  body:
+                    application/json:
+                      example: |
+                        [
+                          {
+                            "student_id": "660c63f3c617badfd66d9c02",
+                            "student_name": "Ignacio Rojas"
+                          },
+                          {
+                            "student_id": "660c645afe7655752717d021",
+                            "student_name": "Roberto Gonzalez"
+                          }
+                        ]
+/evaluation-data/section/{section_id}/evaluation/{evaluation_id}/student/{student_id}:
+    get:
+      description: Obtener resultados de evaluación individual de estudiantes, buscando por ID evaluación, sección y estudiante
+        queryParameters:
+          section_id:
+          description: ID de la seccion
+          type: string
+          example: "661ed3f75d31eca96c2d43e8"
+          evaluation_id:
+          description: ID de la evaluación
+          type: string
+          example: "661ed3f75d31eca96c2d43e8"
+          student_id:
+          description: ID del estudiante
+          type: string
+          example: "661ed3f75d31eca96c2d43e8"
+      responses:
+        200:
+          body:
+            application/json:
+            example:
+            {
+                "data": {
+                    "_id": "6628147964e340b97948512e",
+                    "student_id": "660c63f3c617badfd66d9c02",
+                    "section_id": "661ff8ee2910d337c4b9b75f",
+                    "evaluation_id": "661ed3f75d31eca96c2d43e8",
+                    "rubric_indicator_points": 
+                    [
+                        {
+                            "id_indicator": "661ff4462910d337c4b9a6c8",
+                            "points": "4",
+                            "timestamps": "2024-04-23T20:05:13.071Z"
+                        },
+                        {
+                            "id_indicator": "661ff4462910d337c4b9a6ca",
+                            "points": "2",
+                            "timestamps": "2024-04-23T20:05:13.072Z"
+                        }
+                    ],
+                    "score": "7.0",
+                    "status": "Evaluado",
+                    "comments": [],
+                    "student": {
+                        "student_id": "660c63f3c617badfd66d9c02",
+                        "student_name": "Ignacio Rojas"
+                    },
+                    "section": {
+                        "section_name": "A",
+                        "section_id": "661ff8ee2910d337c4b9b75f"
+                    },
+                    "subject": {
+                        "subject_alignment_id": "661ed3c35d31eca96c2d43a2",
+                        "subject_code": "3442A117",
+                        "subject_name": "Comunicacion Oral y Escrita I"
+                    },
+                    "rubric": {
+                        "_id": "661ff4462910d337c4b9a6c6",
+                        "lead_professor": "44444444-4",
+                        "title": "RÚBRICA TALLER 3: ANÁLISIS DE DATOS Y CALIFICACIÓN",
+                        "requirement_percentage": 60,
+                        "subject_id": "3442A117",
+                        "criteria": 
+                        [
+                            {
+                                "criteria_description": "Cálculo de calificaciones y su justificación",
+                                "weighting": 50,
+                                "indicators": 
+                                [
+                                    {
+                                        "indicator_description": "Indica el punto de corte seleccionado y justifica su elección.",
+                                        "score": 4,
+                                        "score_descriptions": 
+                                        [
+                                            {
+                                                "score": 0,
+                                                "description": "No presenta o es incorrecta.",
+                                                "_id": "661ff6ae2910d337c4b9afcc"
+                                            },
+                                            {
+                                                "score": 1,
+                                                "description": "Señala el porcentaje de corte, pero no justifica su elección. (ej. 60%).\no\nSeñala el porcentaje de logro y justifica, pero la justificación es errónea, pues aproxima el valor al entero.",
+                                                "_id": "661ff6ae2910d337c4b9afcd"
+                                            },
+                                            {
+                                                "score": 2,
+                                                "description": "Señala el porcentaje de corte, pero la justificación no incorpora argumentos de los textos, las clases o la situación específica.\n(EJ: 60% porque eso es lo que se usa en los colegios).",
+                                                "_id": "661ff6ae2910d337c4b9afce"
+                                            },
+                                            {
+                                                "score": 3,
+                                                "description": "Señala el porcentaje de corte, pero la justificación no incorpora argumentos asociados al rendimiento de los estudiantes o la construcción de la prueba. (EJ: 40% porque de lo contrario todos tendrían notas rojas; el 40% porque la prueba fue muy mala).",
+                                                "_id": "661ff6ae2910d337c4b9afcf"
+                                            },
+                                            {
+                                                "score": 4,
+                                                "description": "Señala el porcentaje de corte y lo justifica correctamente. (EJ: 58,7% porque 60% la nota debe reflejar un % de logro mínimo para este aprendizaje, no obstante, como los puntajes son enteros se ajustó el %).",
+                                                "_id": "661ff6ae2910d337c4b9afd0"
+                                            }
+                                        ],
+                                        "_id": "661ff4782910d337c4b9a71b"
+                                    }
+                                ],
+                                "_id": "661ff4782910d337c4b9a71a"
+                            }
+                        ]
+                    }
+                }
+            }
+          500:
+          body:
+            application/json:
+            example:
+          {
+              "error": "No existe sección asociada al ID de evaluación ingresado"
+          }
+/sections:
+      get:
+        description: Obtener todas las secciones
+        responses:
+          200:
+            body:
+              application/json:
+                example: |
+                {
+                    "data": 
+                    [
+                        {
+                            "_id": "661ff8ee2910d337c4b9b75f",
+                            "section_name": "A",
+                            "course_name": "A-2024",
+                            "year": 2024,
+                            "period": 1
+                        },
+                        {
+                            "_id": "661ff8ee2910d337c4b9b760",
+                            "section_name": "B",
+                            "course_name": "B-2024",
+                            "year": 2024,
+                            "period": 1
+                        }
+                    ]
+                }
+            500:
+            body:
+              application/json:
+                example: |
+              {
+                  "error": "La busqueda no retornó secciones"
+              }
+/sections/career_code/{career_code}/subject_code/{subject_code}/year/{year}/period/{period}:
+      get:
+        description: Obtener todas las secciones buscnado por codigo de carrera, codigo de asignatura, año y periodo
+        queryParameters:
+          career_code:
+            description: Código de la carrera career code
+            type: integer
+            example: 3438
+          subject_code:
+            description: Código del módulo o asignatura
+            type: string
+            example: 3425B114
+          year:
+            description: Año
+            type: integer
+            example: 2024
+          period:
+            description: Periodo
+            type: integer
+            example: 1
+        responses:
+          200:
+            body:
+              application/json:
+                example: |
+                {
+                    "data": 
+                    [
+                        {
+                            "_id": "661ff8ee2910d337c4b9b75f",
+                            "section_name": "A",
+                            "course_name": "A-2024",
+                            "year": 2024,
+                            "period": 1
+                        },
+                        {
+                            "_id": "661ff8ee2910d337c4b9b760",
+                            "section_name": "B",
+                            "course_name": "B-2024",
+                            "year": 2024,
+                            "period": 1
+                        }
+                    ]
+                }
+            500:
+            body:
+              application/json:
+                example: |
+              {
+                  "error": "La busqueda no retornó secciones asociadas"
+              }
+/sections/{rut_professor_responsible}:
+      get:
+        description: Obtener todas las secciones buscando por rut de docente responsable
+        queryParameters:
+          rut_professor_responsible:
+            description: Rut del docente
+            type: string
+            example: "22222222-2"
+        responses:
+          200:
+            body:
+              application/json:
+                example: |
+                {
+                    "data": 
+                    [
+                        {
+                            "_id": "661ff8ee2910d337c4b9b75f",
+                            "section_name": "A",
+                            "course_name": "A-2024",
+                            "year": 2024,
+                            "period": 1
+                        },
+                        {
+                            "_id": "661ff8ee2910d337c4b9b760",
+                            "section_name": "B",
+                            "course_name": "B-2024",
+                            "year": 2024,
+                            "period": 1
+                        }
+                    ]
+                }
+            500:
+            body:
+              application/json:
+                example: |
+              {
+                  "message": "No existen secciones asociadas al docente"
+              }
+
+/student:
+      post:
+        description: Crear estudiante
+       body:
+        application/json:
+         type: Item   
+        responses:
+          200:
+            body:
+              application/json:
+                example: |
+                  {
+                    "message": "Estudiante creado exitosamente"
+                  }
+
+
+
